@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import dataclasses
 from dataclasses import replace
+from datetime import datetime
 from typing import TYPE_CHECKING, Annotated, Any, Generic, TypeVar
 from warnings import warn
 
@@ -70,6 +71,9 @@ if pydantic_v2 is not Empty:  # type: ignore[comparison-overlap]  # pragma: no c
             pydantic_v2.IPvAnyNetwork: str,
         }
     )
+
+# Fix for https://github.com/litestar-org/litestar/issues/4481
+_down_types.update({datetime: str})
 
 
 def convert_validation_error(validation_error: ValidationErrorV1 | ValidationErrorV2) -> list[dict[str, Any]]:  # pyright: ignore[reportInvalidTypeForm,reportGeneralTypeIssues]
